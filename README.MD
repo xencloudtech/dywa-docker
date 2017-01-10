@@ -6,6 +6,8 @@ DyWA offers user-driven development of process-oriented web applications. The ap
 
 ### Docker run
 
+Execute `docker run ...` inside your desired working directory.
+
 #### Bash
 ```bash
 docker run -it -p 8080:8080 --volume=${PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume=${PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa scce/dywa:0.6-dime-9
@@ -14,4 +16,27 @@ docker run -it -p 8080:8080 --volume=${PWD}/h2:/opt/jboss/wildfly/standalone/dat
 #### Fish
 ```fish
 docker run -it -p 8080:8080 --volume={$PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume={$PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa scce/dywa:0.6-dime-9
+```
+
+### Docker compose
+
+Create a `docker-compose.yml` in your desired working directory.
+
+```yaml
+version: '2'
+services:
+  dywa:
+    image: scce/dywa:0.6-dime-9
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./h2:/opt/jboss/wildfly/standalone/data/h2:rw"
+      - "./files:/opt/jboss/wildfly/standalone/data/files:rw"
+```
+
+Run `docker-compose up` inside the same directory.
+
+#### Bash/Fish
+```bash
+docker-compose up
 ```
