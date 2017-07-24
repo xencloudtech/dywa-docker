@@ -1,4 +1,4 @@
-FROM jboss/wildfly
+FROM jboss/wildfly:10.1.0.Final
 
 # Switching to user root to avoid permission failures
 USER root
