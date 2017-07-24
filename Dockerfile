@@ -4,7 +4,7 @@ FROM jboss/wildfly
 USER root
 
 # Locations of dependencies
-ENV DIME_WAR_URL https://ls5svn.cs.tu-dortmund.de/maven-public/de/ls5/dywa/webapp/0.6-dime-9/webapp-0.6-dime-9.war
+ENV DIME_WAR_URL https://ls5svn.cs.tu-dortmund.de/maven-public/de/ls5/dywa/app/0.7/app-0.7.ear
 ENV ECLIPSELINK_JAR_URL http://central.maven.org/maven2/org/eclipse/persistence/eclipselink/2.6.2/eclipselink-2.6.2.jar
 
 # Wildfly path configuration
@@ -16,11 +16,10 @@ ENV WILDFLY_ECLIPSELINK_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/bas
 
 # Installation of Dime and Xadisk
 ADD $DIME_WAR_URL $WILDFLY_DEPLOYMENTS_PATH/
-COPY xadisk-1.0.rar $WILDFLY_DEPLOYMENTS_PATH/xadisk.rar
 
 # Installation of H2
-COPY standalone-h2.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
-RUN mkdir -p $WILDFLY_DATA_PATH/h2
+COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
+#RUN mkdir -p $WILDFLY_DATA_PATH/h2
 
 # Installation of Eclipselink
 ADD $ECLIPSELINK_JAR_URL $WILDFLY_ECLIPSELINK_MODULE_PATH/
