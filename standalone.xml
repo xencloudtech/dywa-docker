@@ -141,7 +141,7 @@
             <datasources>
                 <xa-datasource jndi-name="java:/DefaultDS" pool-name="DefaultDS_Pool" enabled="true" use-java-context="true" use-ccm="true">
                     <xa-datasource-property name="ServerName">
-                        localhost
+                        postgres
                     </xa-datasource-property>
                     <xa-datasource-property name="PortNumber">
                         5432
