@@ -16,12 +16,11 @@ ENV WILDFLY_DATA_PATH $WILDFLY_HOME_PATH/standalone/data
 ENV WILDFLY_ECLIPSELINK_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/eclipse/persistence/main
 ENV WILDFLY_POSTGRES_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/postgresql/main/
 
-# Installation of Dime and Xadisk
+# Installation of Dime
 ADD $DIME_WAR_URL $WILDFLY_DEPLOYMENTS_PATH/
-#COPY xadisk-1.0.rar $WILDFLY_DEPLOYMENTS_PATH/xadisk.rar
+COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
 
 # Installation of PostgreSQL-driver
-COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
 ADD $POSTGRESDRIVER_JAR_URL $WILDFLY_POSTGRES_MODULE_PATH/
 COPY module-postgres.xml $WILDFLY_POSTGRES_MODULE_PATH/module.xml
 
