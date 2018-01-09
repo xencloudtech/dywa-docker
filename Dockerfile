@@ -4,7 +4,7 @@ FROM jboss/wildfly:10.1.0.Final
 USER root
 
 # Locations of dependencies
-ENV DIME_WAR_URL https://ls5svn.cs.tu-dortmund.de/maven-public/de/ls5/dywa/app/0.7/app-0.7.ear
+ENV DYWA_WAR_URL https://ls5svn.cs.tu-dortmund.de/maven-public/de/ls5/dywa/app/0.7/app-0.7.ear
 ENV ECLIPSELINK_JAR_URL http://central.maven.org/maven2/org/eclipse/persistence/eclipselink/2.6.2/eclipselink-2.6.2.jar
 ENV POSTGRESDRIVER_JAR_URL https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar
 
@@ -17,7 +17,7 @@ ENV WILDFLY_ECLIPSELINK_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/bas
 ENV WILDFLY_POSTGRES_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/postgresql/main/
 
 # Installation of Dime
-ADD $DIME_WAR_URL /tmp/
+ADD $DYWA_WAR_URL /tmp/
 COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
 
 # Installation of PostgreSQL-driver
