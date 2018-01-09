@@ -17,7 +17,7 @@ ENV WILDFLY_ECLIPSELINK_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/bas
 ENV WILDFLY_POSTGRES_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/postgresql/main/
 
 # Installation of Dime
-ADD $DIME_WAR_URL $WILDFLY_DEPLOYMENTS_PATH/
+ADD $DIME_WAR_URL /tmp/
 COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
 
 # Installation of PostgreSQL-driver
@@ -32,5 +32,12 @@ COPY module-eclipselink.xml $WILDFLY_ECLIPSELINK_MODULE_PATH/module.xml
 RUN mkdir -p $WILDFLY_DATA_PATH/files && \
     chown -R jboss:jboss $WILDFLY_HOME_PATH
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN chown jboss:jboss /tmp/app-0.7.ear
+
 # Switching back to user jboss
-USER jboss
+#USER jboss
+
+
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
