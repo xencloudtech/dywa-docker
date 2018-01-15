@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-cp /tmp/app-0.7.ear /opt/jboss/wildfly/standalone/deployments/app-0.7.ear
+cp -r /tmp/wildfly/standalone/deployments /opt/jboss/wildfly/standalone/
+cp -r /tmp/wildfly/standalone/configuration /opt/jboss/wildfly/standalone/
 
 /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0

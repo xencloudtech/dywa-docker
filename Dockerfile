@@ -16,9 +16,14 @@ ENV WILDFLY_DATA_PATH $WILDFLY_HOME_PATH/standalone/data
 ENV WILDFLY_ECLIPSELINK_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/eclipse/persistence/main
 ENV WILDFLY_POSTGRES_MODULE_PATH $WILDFLY_HOME_PATH/modules/system/layers/base/org/postgresql/main/
 
+# Temp directories configuration
+ENV TMP_WILDFLY_STANDALONE_FOLDER /tmp/wildfly/standalone
+ENV TMP_WILDFLY_DEPLOYMENTS_PATH $TMP_WILDFLY_STANDALONE_FOLDER/deployments
+ENV TMP_WILDFLY_CONFIGURATION_PATH $TMP_WILDFLY_STANDALONE_FOLDER/configuration
+
 # Installation of Dime
-ADD $DYWA_WAR_URL /tmp/
-COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/standalone.xml
+ADD $DYWA_WAR_URL $WILDFLY_DEPLOYMENTS_PATH/
+COPY standalone.xml $WILDFLY_CONFIGURATION_PATH/
 
 # Installation of PostgreSQL-driver
 ADD $POSTGRESDRIVER_JAR_URL $WILDFLY_POSTGRES_MODULE_PATH/
@@ -28,16 +33,17 @@ COPY module-postgres.xml $WILDFLY_POSTGRES_MODULE_PATH/module.xml
 ADD $ECLIPSELINK_JAR_URL $WILDFLY_ECLIPSELINK_MODULE_PATH/
 COPY module-eclipselink.xml $WILDFLY_ECLIPSELINK_MODULE_PATH/module.xml
 
-# Make file directory and fix permissions
-RUN mkdir -p $WILDFLY_DATA_PATH/files && \
-    chown -R jboss:jboss $WILDFLY_HOME_PATH
-
+# Apply directory changes to enable volume binding
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-RUN chown jboss:jboss /tmp/app-0.7.ear
+RUN mkdir -p $WILDFLY_DATA_PATH/files && \
+        chown -R jboss:jboss $WILDFLY_HOME_PATH && \
+        mkdir -p $TMP_WILDFLY_STANDALONE_FOLDER && \
+        cp -R $WILDFLY_CONFIGURATION_PATH $TMP_WILDFLY_STANDALONE_FOLDER/ && \
+        cp -R $WILDFLY_DEPLOYMENTS_PATH $TMP_WILDFLY_STANDALONE_FOLDER/ && \
+        chmod +x /usr/local/bin/docker-entrypoint.sh
+        #chown jboss:jboss $TMP_FOLDER/app-0.7.ear
 
 # Switching back to user jboss
 #USER jboss
-
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
