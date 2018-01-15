@@ -41,9 +41,5 @@ RUN mkdir -p $WILDFLY_DATA_PATH/files && \
         cp -R $WILDFLY_CONFIGURATION_PATH $TMP_WILDFLY_STANDALONE_FOLDER/ && \
         cp -R $WILDFLY_DEPLOYMENTS_PATH $TMP_WILDFLY_STANDALONE_FOLDER/ && \
         chmod +x /usr/local/bin/docker-entrypoint.sh
-        #chown jboss:jboss $TMP_FOLDER/app-0.7.ear
-
-# Switching back to user jboss
-#USER jboss
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
