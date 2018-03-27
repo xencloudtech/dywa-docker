@@ -42,6 +42,7 @@
         <module name="javax.api"/>
         <module name="javax.annotation.api"/>
         <module name="javax.enterprise.api"/>
+        <module name="javax.jms.api"/>
         <module name="javax.persistence.api"/>
         <module name="javax.transaction.api"/>
         <module name="javax.validation.api"/>
