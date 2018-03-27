@@ -419,6 +419,26 @@
             <client-config name="Standard-Client-Config"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:3.0"/>
+        <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
+            <server name="default">
+                <security-setting name="#">
+                    <role name="guest" send="true" consume="true"
+                          create-non-durable-queue="true"
+                          delete-non-durable-queue="true"/>
+                </security-setting>
+                <address-setting name="#" dead-letter-address="jms.queue.DLQ"
+                                 expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760"
+                                 page-size-bytes="2097152" message-counter-history-day-limit="10"/>
+                <in-vm-connector name="in-vm" server-id="0"/>
+                <in-vm-acceptor name="in-vm" server-id="0"/>
+                <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
+                <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
+                <jms-topic name="DyWACacheTopic"
+                           entries="java:/jms/topic/DyWACacheTopic"/>
+                <connection-factory name="InVmConnectionFactory"
+                                    entries="java:/ConnectionFactory" connectors="in-vm"/>
+            </server>
+        </subsystem>
     </profile>
     <interfaces>
         <interface name="management">
