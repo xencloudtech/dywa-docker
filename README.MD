@@ -25,7 +25,7 @@ services:
       - postgres
     networks:
       - postgres
-    image: xencloudtech/dywa:1.0
+    image: xencloudtech/dywa-docker:latest
     ports:
       - "8080:8080"
     volumes:
@@ -37,7 +37,7 @@ services:
       - "POSTGRES_DB=dywa"
       - "POSTGRES_PASSWORD=sa"
       - "POSTGRES_USER=sa"
-    image: xencloudtech/dywa-postgres:1.0
+    image: xencloudtech/dywa-postgres-docker:latest
     networks:
       - postgres
     ports:
@@ -45,4 +45,4 @@ services:
 
 volumes:
   wildfly:
-```
+  ```
