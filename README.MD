@@ -5,10 +5,10 @@ DyWA offers user-driven development of process-oriented web applications. The ap
 ## Docker
 
 ```bash
-docker run -it -p 8080:8080 --volume=${PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume=${PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa scce/dywa:latest
+docker run -it -p 8080:8080 --volume=${PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume=${PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa xencloudtech/dywa:latest
 ```
 ```fish
-docker run -it -p 8080:8080 --volume={$PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume={$PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa scce/dywa:latest
+docker run -it -p 8080:8080 --volume={$PWD}/h2:/opt/jboss/wildfly/standalone/data/h2:rw --volume={$PWD}/files:/opt/jboss/wildfly/standalone/data/files:rw --name=dywa xencloudtech/dywa:latest
 ```
 
 ## Docker compose
@@ -25,7 +25,7 @@ services:
       - postgres
     networks:
       - postgres
-    image: scce/dywa:0.7
+    image: xencloudtech/dywa:1.0
     ports:
       - "8080:8080"
     volumes:
@@ -37,7 +37,7 @@ services:
       - "POSTGRES_DB=dywa"
       - "POSTGRES_PASSWORD=sa"
       - "POSTGRES_USER=sa"
-    image: scce/dywa-postgres:latest
+    image: xencloudtech/dywa-postgres:1.0
     networks:
       - postgres
     ports:
